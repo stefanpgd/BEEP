@@ -12,6 +12,7 @@ struct Vertex;
 
 class Model
 {
+public:
 	// Model through TinyglTF, so glTF files are expected
 	Model(const std::string& filePath);
 

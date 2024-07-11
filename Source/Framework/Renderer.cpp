@@ -10,10 +10,15 @@
 #include "Graphics/Window.h"
 #include "Graphics/Texture.h"
 
+// Render Stages //
+#include "Graphics/RenderStages/SceneStage.h"
+
 #include <cassert>
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx12.h>
+
+SceneStage* testStage;
 
 namespace RendererInternal
 {
@@ -48,6 +53,8 @@ Renderer::Renderer(const std::wstring& applicationName, unsigned int windowWidth
 	window = new Window(applicationName, windowWidth, windowHeight);
 
 	InitializeImGui();
+
+	testStage = new SceneStage();
 }
 
 void Renderer::Render()
@@ -61,13 +68,11 @@ void Renderer::Render()
 	CD3DX12_CPU_DESCRIPTOR_HANDLE dsvHandle = window->GetDepthDSV();
 
 	directCommands->ResetCommandList(backBufferIndex);
+
 	commandList->SetDescriptorHeaps(1, heaps);
+	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	TransitionResource(renderTargetBuffer.Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-	BindAndClearRenderTarget(window, &rtvHandle, &dsvHandle);
-
-	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList.Get());
-	TransitionResource(renderTargetBuffer.Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	testStage->RecordStage(commandList);
 
 	directCommands->ExecuteCommandList(backBufferIndex);
 	window->Present();
