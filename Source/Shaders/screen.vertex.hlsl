@@ -10,10 +10,16 @@ struct VertexOutput
     float4 Position : SV_POSITION;
 };
 
+struct TransformData
+{
+    matrix MVP;
+};
+ConstantBuffer<TransformData> Transform : register(b0);
+
 VertexOutput main(VertexPosColor IN)
 {
     VertexOutput OUT;
-    OUT.Position = float4(IN.Position, 1.0);
+    OUT.Position = mul(Transform.MVP, float4(IN.Position, 1.0f));
     OUT.TexCoord = IN.TexCoord;
     
     return OUT;
