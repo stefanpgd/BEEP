@@ -18,8 +18,6 @@
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx12.h>
 
-SceneStage* testStage;
-
 namespace RendererInternal
 {
 	Window* window = nullptr;
@@ -54,7 +52,8 @@ Renderer::Renderer(const std::wstring& applicationName, unsigned int windowWidth
 
 	InitializeImGui();
 
-	testStage = new SceneStage();
+	// Initialize Stage(s) //
+	sceneStage = new SceneStage();
 }
 
 void Renderer::Render()
@@ -72,7 +71,7 @@ void Renderer::Render()
 	commandList->SetDescriptorHeaps(1, heaps);
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	testStage->RecordStage(commandList);
+	sceneStage->RecordStage(commandList);
 
 	directCommands->ExecuteCommandList(backBufferIndex);
 	window->Present();
@@ -83,6 +82,13 @@ void Renderer::Resize()
 {
 	directCommands->Flush();
 	window->Resize();
+}
+
+void Renderer::SetScene(Scene* scene)
+{
+	this->scene = scene;
+
+	sceneStage->SetScene(scene);
 }
 
 void Renderer::InitializeImGui()

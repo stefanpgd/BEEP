@@ -7,6 +7,7 @@
 
 class Renderer;
 class Editor;
+class Scene;
 
 // When using the template, rename 'Application' to whatever the current project is called 
 class Application
@@ -35,4 +36,5 @@ private:
 	// Systems //
 	Renderer* renderer;
 	Editor* editor;
+	Scene* scene;
 };

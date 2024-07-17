@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\tinyglTF\tiny_gltf.cpp" />
+    <ClCompile Include="Source\Framework\Scene.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Framework\Input.cpp" />
     <ClCompile Include="Source\Framework\Editor.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Headers\Graphics\RenderStage.h" />
     <ClInclude Include="Headers\Framework\Input.h" />
     <ClInclude Include="Headers\Graphics\Model.h" />
+    <ClInclude Include="Headers\Framework\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Microsoft\d3dcompiler_47.dll">

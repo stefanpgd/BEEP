@@ -5,6 +5,9 @@
 #include <wrl.h>
 using namespace Microsoft::WRL;
 
+class Scene;
+class SceneStage;
+
 class Renderer
 {
 public:
@@ -13,6 +16,12 @@ public:
 	void Render();
 	void Resize();
 
+	void SetScene(Scene* scene);
+
 private:
 	void InitializeImGui();
+
+private:
+	Scene* scene;
+	SceneStage* sceneStage;
 };

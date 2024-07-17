@@ -2,6 +2,7 @@
 #include "Framework/Renderer.h"
 #include "Framework/Editor.h"
 #include "Framework/Input.h"
+#include "Framework/Scene.h"
 #include "Utilities/Logger.h"
 
 #define WIN32_LEAN_AND_MEAN 
@@ -28,6 +29,9 @@ Application::Application()
 
 	renderer = new Renderer(applicationName, windowWidth, windowHeight);
 	editor = new Editor(this);
+
+	scene = new Scene();
+	renderer->SetScene(scene);
 
 	LOG("Successfully initialized - 'BEEP'");
 }
@@ -91,6 +95,7 @@ void Application::Render()
 	renderer->Render();
 }
 
+#pragma region WindowsCallbacks
 void Application::RegisterWindowClass()
 {
 	WNDCLASSEXW windowClassDescription = {};
@@ -131,3 +136,4 @@ LRESULT Application::WindowsCallback(HWND hwnd, UINT message, WPARAM wParam, LPA
 
 	return ::DefWindowProcW(hwnd, message, wParam, lParam);
 }
+#pragma endregion

@@ -2,7 +2,7 @@
 
 #include "Graphics/RenderStage.h"
 
-class Model;
+class Scene;
 
 class SceneStage : public RenderStage
 {
@@ -11,9 +11,11 @@ public:
 
 	void RecordStage(ComPtr<ID3D12GraphicsCommandList4> commandList) override;
 
+	void SetScene(Scene* scene);
+
 private:
 	void InitializePipeline();
 
 private:
-	Model* testModel;
+	Scene* scene;
 };

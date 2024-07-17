@@ -7,6 +7,7 @@
 #include "Graphics/Model.h"
 #include "Graphics/Mesh.h"
 #include "Graphics/Window.h"
+#include "Framework/Scene.h"
 
 #include <imgui_impl_dx12.h>
 
@@ -17,6 +18,12 @@ SceneStage::SceneStage()
 
 void SceneStage::RecordStage(ComPtr<ID3D12GraphicsCommandList4> commandList)
 {
+	if(!scene)
+	{
+		LOG(Log::MessageType::Error, "Scene has not been set for the 'Scene' rendering stage.");
+		return;
+	}
+
 	// 0. Grab all relevant variables //
 	ComPtr<ID3D12Resource> renderTargetBuffer = window->GetCurrentScreenBuffer();
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle = window->GetCurrentScreenRTV();
@@ -30,26 +37,40 @@ void SceneStage::RecordStage(ComPtr<ID3D12GraphicsCommandList4> commandList)
 	commandList->SetGraphicsRootSignature(rootSignature->GetAddress());
 	commandList->SetPipelineState(pipeline->GetAddress());
 
-	// 3. Bind root parameters //
-	glm::mat4 modelMatrix = testModel->Transform.GetModelMatrix();
-	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0, 1.0, 0.0));
+	// 3. Render Model(s) //
+	// TODO: Move to camera... 
+	glm::vec3 up = glm::cross(glm::normalize(glm::vec3(0.0f, 5.0f, 5.0f)), glm::vec3(1.0, 0.0, 0.0));
+	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 5.0f, 5.0f), glm::vec3(0.0f, 0.0f, -0.0f), up);
 
 	float aspectRatio = float(DXAccess::GetWindow()->GetWindowWidth()) / float(DXAccess::GetWindow()->GetWindowHeight());
 	glm::mat4 projection = glm::perspective(glm::radians(80.0f), aspectRatio, 0.01f, 1000.0f);
-	glm::mat4 mvp = (projection * view) * modelMatrix;
 
-	commandList->SetGraphicsRoot32BitConstants(0, 16, &mvp, 0);
+	const std::vector<Model*>& models = scene->GetModels();
+	for(Model* model : models)
+	{
+		glm::mat4 modelMatrix = model->Transform.GetModelMatrix();
+		glm::mat4 mvp = (projection * view) * modelMatrix;
 
-	// 3. Render model // 
-	Mesh* testMesh = testModel->GetMesh(0);
+		// Bind MVP for the entire model 
+		commandList->SetGraphicsRoot32BitConstants(0, 16, &mvp, 0);
 
-	commandList->IASetVertexBuffers(0, 1, &testMesh->GetVertexBufferView());
-	commandList->IASetIndexBuffer(&testMesh->GetIndexBufferView());
-	commandList->DrawIndexedInstanced(testMesh->GetIndicesCount(), 1, 0, 0, 0);
-
+		const std::vector<Mesh*>& meshes = model->GetMeshes();
+		for(Mesh* mesh : meshes)
+		{
+			commandList->IASetVertexBuffers(0, 1, &mesh->GetVertexBufferView());
+			commandList->IASetIndexBuffer(&mesh->GetIndexBufferView());
+			commandList->DrawIndexedInstanced(mesh->GetIndicesCount(), 1, 0, 0, 0);
+		}
+	}
+	
 	//  4. Draw UI & Transition the render target for presentation //
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList.Get());
 	TransitionResource(renderTargetBuffer.Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+}
+
+void SceneStage::SetScene(Scene* scene)
+{
+	this->scene = scene;
 }
 
 void SceneStage::InitializePipeline()
@@ -65,6 +86,4 @@ void SceneStage::InitializePipeline()
 	description.RootSignature = rootSignature;
 
 	pipeline = new DXPipeline(description);
-
-	testModel = new Model("Assets/Models/Sphere/sphere.gltf");
 }
