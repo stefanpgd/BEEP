@@ -2,6 +2,7 @@
 
 #include <vector>
 
+class Camera;
 class GameObject;
 
 /// <summary>
@@ -15,8 +16,11 @@ public:
 
 	void Update(float deltaTime);
 
+	Camera* GetCamera();
 	const std::vector<GameObject*>& GetGameObjects();
 
 private:
+	Camera* camera;
+
 	std::vector<GameObject*> gameObjects;
 };

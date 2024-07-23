@@ -13,8 +13,11 @@ namespace DXAccess
 	DXCommands* GetCommands(D3D12_COMMAND_LIST_TYPE type);
 	ComPtr<ID3D12Device5> GetDevice();
 	DXDescriptorHeap* GetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE type);
-	Window* GetWindow();
 
 	unsigned int GetCurrentBackBufferIndex();
 	Texture* GetDefaultTexture();
+
+	Window* GetWindow();
+	unsigned int GetWindowWidth();
+	unsigned int GetWindowHeight();
 }

@@ -4,7 +4,7 @@
 #include "Graphics/DXCommonSystems.h"
 #include "Graphics/Model.h"
 #include "Graphics/Mesh.h"
-#include "Graphics/Window.h"
+#include "Graphics/Camera.h"
 #include "Framework/Scene.h"
 #include "Framework/GameObject.h"
 
@@ -37,18 +37,11 @@ void SceneStage::RecordStage(ComPtr<ID3D12GraphicsCommandList4> commandList)
 	commandList->SetPipelineState(pipeline->GetAddress());
 
 	// 3. Render Model(s) //
-	// TODO: Move to camera... 
-	glm::vec3 up = glm::cross(glm::normalize(glm::vec3(0.0f, 5.0f, 5.0f)), glm::vec3(1.0, 0.0, 0.0));
-	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), up);
-
-	float aspectRatio = float(DXAccess::GetWindow()->GetWindowWidth()) / float(DXAccess::GetWindow()->GetWindowHeight());
-	glm::mat4 projection = glm::perspective(glm::radians(80.0f), aspectRatio, 0.01f, 1000.0f);
-
 	const std::vector<GameObject*>& gameObjects = scene->GetGameObjects();
 	for(GameObject* gameObject : gameObjects)
 	{
 		glm::mat4 modelMatrix = gameObject->Transform.GetModelMatrix();
-		glm::mat4 mvp = (projection * view) * modelMatrix;
+		glm::mat4 mvp = scene->GetCamera()->GetViewProjectionMatrix() * modelMatrix;
 
 		// Bind MVP for the entire model 
 		commandList->SetGraphicsRoot32BitConstants(0, 16, &mvp, 0);
