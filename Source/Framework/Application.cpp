@@ -80,6 +80,7 @@ void Application::Start()
 void Application::Update(float deltaTime)
 {
 	Input::Update();
+	scene->Update(deltaTime);
 
 	editor->Update(deltaTime);
 
