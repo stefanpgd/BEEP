@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\tinyglTF\tiny_gltf.cpp" />
+    <ClCompile Include="Source\Framework\GameObject.cpp" />
     <ClCompile Include="Source\Framework\Scene.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Framework\Input.cpp" />
@@ -119,7 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Framework\Editor.h" />
+    <ClInclude Include="Headers\Framework\GameObject.h" />
     <ClInclude Include="Headers\Graphics\DXCommon.h" />
+    <ClInclude Include="Headers\Graphics\DXCommonSystems.h" />
     <ClInclude Include="Headers\Graphics\DXUploadBuffer.h" />
     <ClInclude Include="Headers\Graphics\RenderStages\SceneStage.h" />
     <ClInclude Include="Headers\Utilities\Random.h" />

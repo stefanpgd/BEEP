@@ -30,7 +30,6 @@ private:
 	glm::mat4 GetTransformFromNode(tinygltf::Node& node);
 
 public:
-	Transform Transform;
 	std::string Name;
 
 private:

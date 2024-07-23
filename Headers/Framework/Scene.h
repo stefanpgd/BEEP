@@ -2,21 +2,21 @@
 
 #include <vector>
 
-class Model;
+class GameObject;
 
 /// <summary>
-/// Acts a container of all "Objects" in a given scene.
-/// For now these are meshes.
+/// Acts a container for all 'GameObjects' and 'GameSystems' that run in the game.
+/// It also is responsible for Updating these objects and systems. 
 /// </summary>
 class Scene
 {
 public:
 	Scene();
 
-	const std::vector<Model*>& GetModels();
+	void Update(float deltaTime);
+
+	const std::vector<GameObject*>& GetGameObjects();
 
 private:
-	//TODO: In the future probably replace the 'Models' list, with a list of GameObjects
-	// Then if the Model/Mesh of the model is nullptr, we simply don't need to render it.
-	std::vector<Model*> models;
+	std::vector<GameObject*> gameObjects;
 };
