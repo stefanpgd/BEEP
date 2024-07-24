@@ -14,6 +14,7 @@ struct VertexOutput
 
 struct TransformData
 {
+    matrix Model;
     matrix MVP;
 };
 ConstantBuffer<TransformData> Transform : register(b0);
@@ -22,7 +23,7 @@ VertexOutput main(VertexPosColor IN)
 {
     VertexOutput OUT;
     OUT.Position = mul(Transform.MVP, float4(IN.Position, 1.0f));
-    OUT.Normal = normalize(mul(Transform.MVP, float4(IN.Normal, 0.0f)).xyz);
+    OUT.Normal = normalize(mul(Transform.Model, float4(IN.Normal, 0.0f)).xyz);
     OUT.TexCoord = IN.TexCoord;
     
     return OUT;

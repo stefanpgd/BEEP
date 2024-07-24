@@ -43,8 +43,9 @@ void SceneStage::RecordStage(ComPtr<ID3D12GraphicsCommandList4> commandList)
 		glm::mat4 modelMatrix = gameObject->Transform.GetModelMatrix();
 		glm::mat4 mvp = scene->GetCamera()->GetViewProjectionMatrix() * modelMatrix;
 
-		// Bind MVP for the entire model 
-		commandList->SetGraphicsRoot32BitConstants(0, 16, &mvp, 0);
+		// Bind Model & MVP Matrix //
+		commandList->SetGraphicsRoot32BitConstants(0, 16, &modelMatrix, 0);
+		commandList->SetGraphicsRoot32BitConstants(0, 16, &mvp, 16);
 
 		const std::vector<Mesh*>& meshes = gameObject->GetModel()->GetMeshes();
 		for(Mesh* mesh : meshes)
@@ -68,7 +69,7 @@ void SceneStage::SetScene(Scene* scene)
 void SceneStage::InitializePipeline()
 {
 	CD3DX12_ROOT_PARAMETER1 rootParameters[1];
-	rootParameters[0].InitAsConstants(16, 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
+	rootParameters[0].InitAsConstants(32, 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
 
 	rootSignature = new DXRootSignature(rootParameters, _countof(rootParameters), D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
