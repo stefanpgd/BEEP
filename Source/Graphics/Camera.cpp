@@ -27,9 +27,11 @@ void Camera::Update(float deltaTime)
 		movement /= speed;
 	}
 
-	int forward = Input::GetKey(KeyCode::S) - Input::GetKey(KeyCode::W);
+	int right = Input::GetKey(KeyCode::D) - Input::GetKey(KeyCode::A);
+	int up = Input::GetKey(KeyCode::S) - Input::GetKey(KeyCode::W);
 
-	Position.z += forward * movement;
+	Position.x += right * movement;
+	Position.z += up * movement;
 
 	UpdateViewMatrix();
 }

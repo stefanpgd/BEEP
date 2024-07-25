@@ -47,6 +47,9 @@ void SceneStage::RecordStage(ComPtr<ID3D12GraphicsCommandList4> commandList)
 		commandList->SetGraphicsRoot32BitConstants(0, 16, &modelMatrix, 0);
 		commandList->SetGraphicsRoot32BitConstants(0, 16, &mvp, 16);
 
+		// Material //
+		commandList->SetGraphicsRoot32BitConstants(1, 3, &gameObject->Material, 0);
+
 		const std::vector<Mesh*>& meshes = gameObject->GetModel()->GetMeshes();
 		for(Mesh* mesh : meshes)
 		{
@@ -68,8 +71,9 @@ void SceneStage::SetScene(Scene* scene)
 
 void SceneStage::InitializePipeline()
 {
-	CD3DX12_ROOT_PARAMETER1 rootParameters[1];
+	CD3DX12_ROOT_PARAMETER1 rootParameters[2];
 	rootParameters[0].InitAsConstants(32, 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
+	rootParameters[1].InitAsConstants(3, 0, 0, D3D12_SHADER_VISIBILITY_PIXEL);
 
 	rootSignature = new DXRootSignature(rootParameters, _countof(rootParameters), D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
