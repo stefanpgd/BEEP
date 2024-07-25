@@ -6,6 +6,7 @@
 #include <string>
 
 class Renderer;
+class GameManager;
 class Editor;
 class Scene;
 
@@ -34,6 +35,7 @@ private:
 	unsigned int windowHeight = 720;
 
 	// Systems //
+	GameManager* gameManager;
 	Renderer* renderer;
 	Editor* editor;
 	Scene* scene;

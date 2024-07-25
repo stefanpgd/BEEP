@@ -3,6 +3,7 @@
 #include "Framework/Editor.h"
 #include "Framework/Input.h"
 #include "Framework/Scene.h"
+#include "Game/GameManager.h"
 #include "Utilities/Logger.h"
 
 #define WIN32_LEAN_AND_MEAN 
@@ -33,23 +34,22 @@ Application::Application()
 	scene = new Scene();
 	renderer->SetScene(scene);
 
+	gameManager = new GameManager(scene);
+
 	LOG("Successfully initialized - 'BEEP'");
 }
 
 void Application::Run()
 {
+	// Setup deltaTime //
 	std::chrono::high_resolution_clock* clock = new std::chrono::high_resolution_clock();
 	auto t0 = std::chrono::time_point_cast<std::chrono::milliseconds>((clock->now())).time_since_epoch();;
 	float deltaTime = 1.0f;
 
+	// Main engine loop //
 	MSG msg = {};
 	while(runApplication && msg.message != WM_QUIT)
 	{
-		// DeltaTime //
-		auto t1 = std::chrono::time_point_cast<std::chrono::milliseconds>((clock->now())).time_since_epoch();
-		deltaTime = (t1 - t0).count() * .001;
-		t0 = t1;
-
 		// Window's Callback //
 		if(::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
@@ -57,7 +57,11 @@ void Application::Run()
 			::DispatchMessage(&msg);
 		}
 
-		// Engine Loop //
+		// Update deltaTime //
+		auto t1 = std::chrono::time_point_cast<std::chrono::milliseconds>((clock->now())).time_since_epoch();
+		deltaTime = (t1 - t0).count() * .001;
+		t0 = t1;
+
 		Start();
 		Update(deltaTime);
 		Render();
@@ -80,8 +84,9 @@ void Application::Start()
 void Application::Update(float deltaTime)
 {
 	Input::Update();
-	scene->Update(deltaTime);
 
+	gameManager->UpdateGame(deltaTime);
+	scene->Update(deltaTime);
 	editor->Update(deltaTime);
 
 	if(Input::GetKeyDown(KeyCode::Escape))

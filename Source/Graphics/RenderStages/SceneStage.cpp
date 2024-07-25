@@ -6,7 +6,7 @@
 #include "Graphics/Mesh.h"
 #include "Graphics/Camera.h"
 #include "Framework/Scene.h"
-#include "Framework/GameObject.h"
+#include "Game/GameObject.h"
 
 #include <imgui_impl_dx12.h>
 

@@ -11,3 +11,8 @@
 
 #define PI 3.14159265359
 #define PI2 6.28318530718
+
+inline glm::vec3 Lerp(glm::vec3& a, glm::vec3 b, float t)
+{
+	return a * (1.0f - t) + b * t;
+}

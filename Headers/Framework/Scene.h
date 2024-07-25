@@ -16,6 +16,8 @@ public:
 
 	void Update(float deltaTime);
 
+	void AddGameObject(GameObject* gameObject);
+
 	Camera* GetCamera();
 	const std::vector<GameObject*>& GetGameObjects();
 

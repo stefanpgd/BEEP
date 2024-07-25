@@ -30,6 +30,7 @@ enum class KeyCode
 	Y = ImGuiKey::ImGuiKey_Y,
 	Z = ImGuiKey::ImGuiKey_Z,
 
+	Spacebar = ImGuiKey::ImGuiKey_Space,
 	Shift = ImGuiKey::ImGuiKey_ModShift,
 	Ctrl = ImGuiKey::ImGuiKey_ModCtrl,
 	Escape = ImGuiKey::ImGuiKey_Escape

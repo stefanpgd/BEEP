@@ -2,9 +2,8 @@
 
 #include <string>
 #include "Graphics/Transform.h"
+#include "Graphics/Model.h"
 #include "Graphics/Material.h"
-
-class Model;
 
 /// <summary>
 /// A 'GameObject' is any object that's visible in-game. Meaning that it should always have
@@ -14,8 +13,6 @@ class Model;
 class GameObject
 {
 public:
-	GameObject(std::string modelFilePath);
-
 	virtual void Update(float deltaTime); // Called by the Scene
 
 	Model* GetModel();
@@ -24,6 +21,6 @@ public:
 	Transform Transform;
 	Material Material;
 
-private:
+protected:
 	Model* model;
 };

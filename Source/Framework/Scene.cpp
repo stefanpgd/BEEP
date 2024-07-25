@@ -1,5 +1,5 @@
 #include "Framework/Scene.h"
-#include "Framework/GameObject.h"
+#include "Game/Objects/StaticMesh.h"
 #include "Graphics/Camera.h"
 #include "Graphics/DXAccess.h"
 
@@ -7,14 +7,14 @@ Scene::Scene()
 {
 	camera = new Camera(glm::vec3(0.0f, 12.0f, 0.0f), DXAccess::GetWindowWidth(), DXAccess::GetWindowHeight());
 	
-	GameObject* sceneGround = new GameObject("Assets/Models/GroundPlane/plane.gltf");
+	GameObject* sceneGround = new StaticMesh("Assets/Models/GroundPlane/plane.gltf");
 	sceneGround->Transform.Position = glm::vec3(0.0f, -1.0f, 0.0f);
 	sceneGround->Transform.Scale = glm::vec3(100.0f, 100.0f, 100.0f);
 
 	sceneGround->Material.Color = glm::vec3(0.75f);
 	gameObjects.push_back(sceneGround);
 
-	GameObject* hole = new GameObject("Assets/Models/Hole/hole.gltf");
+	GameObject* hole = new StaticMesh("Assets/Models/Hole/hole.gltf");
 	hole->Transform.Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	hole->Material.Color = glm::vec3(0.02f);
 
@@ -29,6 +29,11 @@ void Scene::Update(float deltaTime)
 	}
 
 	camera->Update(deltaTime);
+}
+
+void Scene::AddGameObject(GameObject* gameObject)
+{
+	gameObjects.push_back(gameObject);
 }
 
 Camera* Scene::GetCamera()

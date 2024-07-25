@@ -105,10 +105,25 @@
     <ClCompile Include="Source\Framework\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Framework\GameObject.cpp">
+    <ClCompile Include="Source\Game\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Graphics\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Systems\SimpleSpawnerSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Objects\Walker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Objects\StaticMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -218,7 +233,7 @@
     <ClInclude Include="Headers\Framework\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Framework\GameObject.h">
+    <ClInclude Include="Headers\Game\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Graphics\DXCommonSystems.h">
@@ -228,6 +243,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Graphics\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Game\Systems\SimpleSpawnerSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Game\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Game\GameSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Game\Objects\Walker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Game\Objects\StaticMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -86,9 +86,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\GameSystem.cpp" />
+    <ClCompile Include="Source\Game\GameManager.cpp" />
+    <ClCompile Include="Source\Game\Systems\SimpleSpawnerSystem.cpp" />
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Dependencies\tinyglTF\tiny_gltf.cpp" />
-    <ClCompile Include="Source\Framework\GameObject.cpp" />
+    <ClCompile Include="Source\Game\GameObject.cpp" />
     <ClCompile Include="Source\Framework\Scene.cpp" />
     <ClCompile Include="Source\Graphics\Model.cpp" />
     <ClCompile Include="Source\Framework\Input.cpp" />
@@ -118,12 +121,17 @@
     <ClCompile Include="Source\Framework\Renderer.cpp" />
     <ClCompile Include="Source\Framework\Application.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Game\Objects\Walker.cpp" />
+    <ClCompile Include="Source\Game\Objects\StaticMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Game\GameSystem.h" />
+    <ClInclude Include="Headers\Game\GameManager.h" />
+    <ClInclude Include="Headers\Game\Systems\SimpleSpawnerSystem.h" />
     <ClInclude Include="Headers\Graphics\Material.h" />
     <ClInclude Include="Headers\Graphics\Camera.h" />
     <ClInclude Include="Headers\Framework\Editor.h" />
-    <ClInclude Include="Headers\Framework\GameObject.h" />
+    <ClInclude Include="Headers\Game\GameObject.h" />
     <ClInclude Include="Headers\Graphics\DXCommon.h" />
     <ClInclude Include="Headers\Graphics\DXCommonSystems.h" />
     <ClInclude Include="Headers\Graphics\DXUploadBuffer.h" />
@@ -159,6 +167,8 @@
     <ClInclude Include="Headers\Framework\Input.h" />
     <ClInclude Include="Headers\Graphics\Model.h" />
     <ClInclude Include="Headers\Framework\Scene.h" />
+    <ClInclude Include="Headers\Game\Objects\Walker.h" />
+    <ClInclude Include="Headers\Game\Objects\StaticMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Microsoft\d3dcompiler_47.dll">
