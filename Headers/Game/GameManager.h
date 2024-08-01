@@ -1,6 +1,8 @@
 #pragma once
 
-class SimpleSpawnerSystem;
+#include "Game/Resources.h"
+
+class LeaderSystem;
 class Scene;
 
 /// <summary>
@@ -17,10 +19,14 @@ public:
 	void ResumeGame();
 
 private:
+	void DebugWindow();
+
+private:
 	bool updateGame = true;
 
 	Scene* scene;
+	Resources resources;
 
 	// Game System(s) //
-	SimpleSpawnerSystem* spawnSystem;
+	LeaderSystem* leaderSystem;
 };

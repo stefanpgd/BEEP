@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Framework/Scene.h"
+#include "Game/GameObject.h"
 
 /// <summary>
 /// Game Systems are responsible for the backend game logic. They track resources, spawn

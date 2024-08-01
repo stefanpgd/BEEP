@@ -2,10 +2,12 @@
 
 #include "Game/GameSystem.h"
 
-class SimpleSpawnerSystem : public GameSystem
+class MineBuildingSystem : public GameSystem
 {
 public:
-	SimpleSpawnerSystem(Scene* scene);
+	MineBuildingSystem(Scene* scene);
 
 	virtual void Update(float deltaTime) override;
+
+private:
 };

@@ -86,9 +86,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Game\Systems\LeaderSystem.cpp" />
+    <ClCompile Include="Source\Game\Systems\MineBuildingSystem.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
     <ClCompile Include="Source\Game\GameManager.cpp" />
-    <ClCompile Include="Source\Game\Systems\SimpleSpawnerSystem.cpp" />
     <ClCompile Include="Source\Graphics\Camera.cpp" />
     <ClCompile Include="Dependencies\tinyglTF\tiny_gltf.cpp" />
     <ClCompile Include="Source\Game\GameObject.cpp" />
@@ -127,7 +128,7 @@
   <ItemGroup>
     <ClInclude Include="Headers\Game\GameSystem.h" />
     <ClInclude Include="Headers\Game\GameManager.h" />
-    <ClInclude Include="Headers\Game\Systems\SimpleSpawnerSystem.h" />
+    <ClInclude Include="Headers\Game\Resources.h" />
     <ClInclude Include="Headers\Graphics\Material.h" />
     <ClInclude Include="Headers\Graphics\Camera.h" />
     <ClInclude Include="Headers\Framework\Editor.h" />
@@ -169,6 +170,8 @@
     <ClInclude Include="Headers\Framework\Scene.h" />
     <ClInclude Include="Headers\Game\Objects\Walker.h" />
     <ClInclude Include="Headers\Game\Objects\StaticMesh.h" />
+    <ClInclude Include="Headers\Game\Systems\MineBuildingSystem.h" />
+    <ClInclude Include="Headers\Game\Systems\LeaderSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Microsoft\d3dcompiler_47.dll">
