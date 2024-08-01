@@ -14,6 +14,8 @@ public:
 	void UpdateViewMatrix();
 	void ResizeProjectionMatrix(int windowWidth, int windowHeight);
 
+	float GetFOV();
+
 	const glm::vec3& GetForwardVector();
 	const glm::vec3& GetUpwardVector();
 

@@ -50,6 +50,11 @@ void Camera::ResizeProjectionMatrix(int windowWidth, int windowHeight)
 	viewProjection = projection * view;
 }
 
+float Camera::GetFOV()
+{
+	return FOV;
+}
+
 const glm::vec3& Camera::GetForwardVector()
 {
 	return front;

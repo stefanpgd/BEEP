@@ -20,6 +20,7 @@ public:
 
 private:
 	void DebugWindow();
+	void RaycastTesting();
 
 private:
 	bool updateGame = true;
