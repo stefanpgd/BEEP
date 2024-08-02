@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Framework\Physics.cpp" />
     <ClCompile Include="Source\Game\Systems\LeaderSystem.cpp" />
     <ClCompile Include="Source\Game\Systems\MineBuildingSystem.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Headers\Game\Objects\StaticMesh.h" />
     <ClInclude Include="Headers\Game\Systems\MineBuildingSystem.h" />
     <ClInclude Include="Headers\Game\Systems\LeaderSystem.h" />
+    <ClInclude Include="Headers\Framework\Physics.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Dependencies\Microsoft\d3dcompiler_47.dll">

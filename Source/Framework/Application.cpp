@@ -3,6 +3,7 @@
 #include "Framework/Editor.h"
 #include "Framework/Input.h"
 #include "Framework/Scene.h"
+#include "Framework/Physics.h"
 #include "Game/GameManager.h"
 #include "Utilities/Logger.h"
 
@@ -28,13 +29,14 @@ Application::Application()
 {
 	RegisterWindowClass();
 
+	// Renderer must be initialized first due to platform systems relating to Windows //
 	renderer = new Renderer(applicationName, windowWidth, windowHeight);
-	editor = new Editor(this);
-
 	scene = new Scene();
 	renderer->SetScene(scene);
 
 	gameManager = new GameManager(scene);
+	Physics::Initialize(scene);
+	editor = new Editor(this);
 
 	LOG("Successfully initialized - 'BEEP'");
 }
