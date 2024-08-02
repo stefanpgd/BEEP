@@ -1,10 +1,11 @@
 #include "Game/GameManager.h"
 #include "Game/Systems/LeaderSystem.h"
+#include "Game/Objects/StaticMesh.h"
 
 #include "Graphics/Camera.h"
-#include "Framework/Input.h"
 #include "Graphics/DXAccess.h"
-#include "Game/Objects/StaticMesh.h"
+#include "Framework/Input.h"
+#include "Utilities/Logger.h"
 
 #include <imgui.h>
 
@@ -72,17 +73,44 @@ void GameManager::RaycastTesting()
 	int mX = glm::clamp(Input::GetMouseX(), 0, sW);
 	int mY = glm::clamp(Input::GetMouseY(), 0, sH);
 
-	float ndcX = float(mX) / float(sW) * 2.0 - 1.0f;
-	float ndcY = float(mY) / float(sH) * 2.0 - 1.0f;
-	float perspectiveCorrection = 6.6;
+	float ndcX = float(mX) / float(sW) - 0.5;
+	float ndcY = float(mY) / float(sH) - 0.5;
 
-	glm::vec3 position;
-	position.x = (ndcX * aspectRatio) * perspectiveCorrection;
-	position.y = 0.5f;
-	position.z = ndcY * perspectiveCorrection;
+	// Figure out the virtual plane //
+	Camera* camera = scene->GetCamera();
 
-	position.x += scene->GetCamera()->Position.x;
-	position.z += scene->GetCamera()->Position.z;
+	glm::vec3 vpC = camera->Position + camera->GetForwardVector();
+	glm::vec3 vpW = glm::cross(camera->GetForwardVector(), camera->GetUpwardVector()) * aspectRatio;
+	glm::vec3 vpH = camera->GetUpwardVector();
 
-	testingBubble->Transform.Position = position;
+	float focalLength = 0.85f;
+	// Center of the VP //
+	glm::vec3 virtualPlaneTarget = camera->Position + camera->GetForwardVector() * focalLength;
+	virtualPlaneTarget += vpW * ndcX; // add mouse X contribution
+	virtualPlaneTarget += -vpH * ndcY; // add mouse Y contribution
+
+	glm::vec3 rayDir = glm::normalize(virtualPlaneTarget - camera->Position);
+
+	// Now with the rayDirection, we can compute the plane intersection //
+	glm::vec3 planeNormal = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 planeCenter = glm::vec3(0.0f);
+
+	float denom = glm::dot(planeNormal, rayDir);
+
+	if(abs(denom) > 1e-6)
+	{
+		glm::vec3 pToIntersect = planeCenter - camera->Position;
+		float d = glm::dot(pToIntersect, planeNormal);
+		float t = d / denom;
+
+		if(t >= 0.0f)
+		{
+			glm::vec3 hitpoint = camera->Position + rayDir * t;
+			testingBubble->Transform.Position = hitpoint;
+		}
+		else
+		{
+			LOG("Ray cast didn't hit world-plane...");
+		}
+	}
 }
